@@ -1,7 +1,12 @@
-import time
 from locust import HttpUser, task, between
 
-class QuickstartUser(HttpUser):
-    @task
-    def hello_world(self):
-        self.client.get("/integral/0/3.14159")
+class WebAppUser(HttpUser):
+    wait_time = between(1, 3)
+
+    @task(1)
+    def home(self):
+        self.client.get("/")
+
+    @task(2)
+    def numerical_integral(self):
+        self.client.get("/numericalintegral/0/3.14")
